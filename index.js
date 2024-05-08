@@ -1,13 +1,13 @@
-function maxSlidingWindow(nums, k) {
-  const result = [];
-  const queue = [];
-  for (let i = 0; i < nums.length; i++) {
-    while (queue.length && nums[i] >= nums[queue[queue.length - 1]]) {
-      queue.pop();
+function wiggleMaxLength(nums) {
+  if (nums.length === 0) return 0;
+  let up = 1;
+  let down = 1;
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] > nums[i - 1]) {
+      up = down + 1;
+    } else if (nums[i] < nums[i - 1]) {
+      down = up + 1;
     }
-    queue.push(i);
-    if (queue[0] === i - k) queue.shift();
-    if (i >= k - 1) result.push(nums[queue[0]]);
   }
-  return result;
+  return Math.max(up, down);
 }
